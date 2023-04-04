@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  annotations:
+    traffic.spinnaker.io/load-balancers: '["service spinnakerdemo-service"]'
+  labels:
+    app: spinnakerdemo
+  name: spinnakerdemo-frontend
+  namespace: spinnakerdemo-staging
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spinnakerdemo
+  template:
+    metadata:
+      labels:
+        app: spinnakerdemo
+    spec:
+      containers:
+        - image: gcr.io/evolvere-iot-poc/spinnaker-demo # will be modified on deployment to point at a digest of an image
+          name: spinnakerdemo
