@@ -2,7 +2,7 @@ steps:
 - name: 'gcr.io/cloud-builders/java/mvn'
   args: ['install']
 - name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', '-r', 'k8s/*', 'gs://$PROJECT_ID-kubernetes-manifests/spinnaker-demo']
+  args: ['cp', '-r', 'k8s/*', 'gs://$PROJECT_ID-kubernetes-manifests']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/spinnaker-demo:$REVISION_ID', '.']
 - name: 'gcr.io/cloud-builders/gsutil'
