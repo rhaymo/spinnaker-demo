@@ -13,6 +13,8 @@ steps:
     - helm
     - --app-version
     - $REVISION_ID
+    - --version
+    - $TAG_NAME
   id: 'helm package'
   env:
     - GCS_PLUGIN_VERSION=0.2.2
@@ -34,6 +36,6 @@ artifacts:
   objects:
     location: ${_ARTIFACT_URL}/
     paths:
-      - ${_CHART_NAME}-$REVISION_ID.tgz
+      - ${_CHART_NAME}-*.tgz
 
 
