@@ -7,8 +7,6 @@ steps:
   args: ['build', '--tag=gcr.io/$PROJECT_ID/spinnaker-demo:$REVISION_ID', '.']
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['cp', '-r', 'k8s/*', 'gs://$PROJECT_ID-kubernetes-manifests/spinnaker-demo']
-- name: 'gcr.io/$PROJECT_ID/cloud-builders-helm'
-  args: ['upgrade', '--install', 'filebeat', '--namespace', 'filebeat', 'stable/filebeat']
 - name: '${_REGISTRY}/$PROJECT_ID/helm'
   args:
     - package
