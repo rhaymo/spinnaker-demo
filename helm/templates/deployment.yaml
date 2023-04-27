@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  namespace: {{ .Release.Namespace }}
+  name: {{ include "deis-workflow.fullname" . }}
+  labels:
+    app: {{ include "deis-workflow.fullname" . }}
+    version : {{ .Values.version }}
+spec:  
+  replicas: {{ .Values.replicaCount }}  
+  selector:
+    matchLabels:
+      app:  {{ .Values.selectorLabels }}
+      version : {{ .Values.version }}
+  template:
+    metadata:      
+      labels:
+        app: {{ .Values.selectorLabels }}
+        version : {{ .Values.version }}
+    spec:      
+      containers:
+        - name: {{ .Chart.Name }}         
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          env:
+            - name: SUCCESS_RATE
+              valueFrom:
+                configMapKeyRef:
+                  key: SUCCESS_RATE
+                  name: {{ .Values.configMap }}
+          ports: 
+            - containerPort: 8080      
+

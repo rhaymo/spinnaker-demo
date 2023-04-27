@@ -7,4 +7,36 @@ steps:
   args: ['build', '--tag=gcr.io/$PROJECT_ID/spinnaker-demo:$REVISION_ID', '.']
 - name: 'gcr.io/cloud-builders/gsutil'
   args: ['cp', '-r', 'k8s/*', 'gs://$PROJECT_ID-kubernetes-manifests/spinnaker-demo']
+- name: 'gcr.io/$PROJECT_ID/cloud-builders-helm'
+  args: ['upgrade', '--install', 'filebeat', '--namespace', 'filebeat', 'stable/filebeat']
+- name: '${_REGISTRY}/$PROJECT_ID/helm'
+  args:
+    - package
+    - helm
+    - --app-version
+    - $REVISION_ID
+  id: 'helm package'
+  env:
+    - GCS_PLUGIN_VERSION=0.2.2
+    - HELM_REPO_NAME=$_HELM_REPO_NAME
+    - HELM_REPO_URL=$_HELM_REPO_URL
+
+- name: '${_REGISTRY}/$PROJECT_ID/helm'
+  entrypoint: 'bash'
+  args:
+    - -c
+    - helm gcs push ${_CHART_NAME}-$REVISION_ID.tgz $_HELM_REPO_NAME
+  id: 'helm push to gcs'
+
 images: ['gcr.io/$PROJECT_ID/spinnaker-demo:$REVISION_ID']
+substitutions:
+ _REGISTRY: gcr.io
+ _HELM_REPO_NAME: spinnakerdemo-k8s
+ _HELM_REPO_URL: gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/charts
+ _CHART_NAME: spinnakerdemo
+options:
+  env:
+   - SKIP_CLUSTER_CONFIG=true
+   - HELM_EXPERIMENTAL_OCI=1
+
+
