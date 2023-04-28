@@ -1,0 +1,1946 @@
+[
+ {
+  "application": "canarytest",
+  "disabled": true,
+  "expectedArtifacts": [
+   {
+    "defaultArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "f250bfd8-f85b-4c71-8bba-c3d5cee64ea9",
+     "type": "gcs/object"
+    },
+    "displayName": "gcr.io/evolvere-iot-poc/spinnaker-demo",
+    "id": "0d46b920-7a51-4f7b-962d-b83ca8cd2365",
+    "matchArtifact": {
+     "artifactAccount": "docker-registry",
+     "id": "c962758a-73e4-4061-aa2f-fda63aa5cd8c",
+     "name": "gcr.io/evolvere-iot-poc/spinnaker-demo",
+     "type": "docker/image"
+    },
+    "useDefaultArtifact": false,
+    "usePriorArtifact": true
+   },
+   {
+    "defaultArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "660d1f7f-1d35-43a9-9b79-58369ae5b46c",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/namespace.yaml",
+     "reference": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/namespace.yaml",
+     "type": "gcs/object"
+    },
+    "displayName": "Staging Namespace",
+    "id": "235ca4ec-3d42-48f6-a03a-531d7d0acd23",
+    "matchArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "4c71b5ec-7cc9-4f65-8792-b3906bba04f5",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/namespace.yaml",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": true,
+    "usePriorArtifact": true
+   },
+   {
+    "defaultArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "3d0d3672-72f4-42d8-81e7-d0d0e17607f4",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/replicaset.yaml",
+     "reference": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/replicaset.yaml",
+     "type": "gcs/object"
+    },
+    "displayName": "Staging Replicaset",
+    "id": "e22b4b01-c4af-4600-9b71-f9bacd61b59f",
+    "matchArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "57ed1c52-70bf-472e-8cfc-5e0226b1e968",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/replicaset.yaml",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": true,
+    "usePriorArtifact": true
+   },
+   {
+    "defaultArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "c91e9f45-5a52-46b9-b938-08a7b8142be0",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/service.yaml",
+     "reference": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/service.yaml",
+     "type": "gcs/object"
+    },
+    "displayName": "Staging Service",
+    "id": "a48d64df-6969-4912-ab1a-d4553dedebf4",
+    "matchArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "c7da68d0-f372-4f71-b2ac-2d1b511fc542",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/staging/service.yaml",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": true,
+    "usePriorArtifact": true
+   }
+  ],
+  "id": "2362ef33-7196-45b0-9e00-9dbc55c2865f",
+  "index": 0,
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "Deploy to dev",
+  "spelEvaluator": "v4",
+  "stages": [
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "235ca4ec-3d42-48f6-a03a-531d7d0acd23",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy Namespace",
+    "refId": "1",
+    "requisiteStageRefIds": [],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "a48d64df-6969-4912-ab1a-d4553dedebf4",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy Service",
+    "refId": "2",
+    "requisiteStageRefIds": [
+     "1"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "e22b4b01-c4af-4600-9b71-f9bacd61b59f",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy Replicaset to Staging",
+    "refId": "3",
+    "requiredArtifactIds": [
+     "0d46b920-7a51-4f7b-962d-b83ca8cd2365"
+    ],
+    "requiredArtifacts": [],
+    "requisiteStageRefIds": [
+     "2"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": true,
+     "options": {
+      "enableTraffic": true,
+      "namespace": "spinnakerdemo-staging",
+      "services": [
+       "service spinnakerdemo-service"
+      ],
+      "strategy": "highlander"
+     }
+    },
+    "type": "deployManifest"
+   }
+  ],
+  "triggers": [
+   {
+    "enabled": false,
+    "expectedArtifactIds": [
+     "0d46b920-7a51-4f7b-962d-b83ca8cd2365"
+    ],
+    "payloadConstraints": {
+     "tag": "gcr.io/evolvere-iot-poc/spinnaker-demo:v*"
+    },
+    "pubsubSystem": "google",
+    "subscriptionName": "gcr-pub-sub",
+    "type": "pubsub"
+   }
+  ],
+  "updateTs": "1682524445100"
+ },
+ {
+  "application": "canarytest",
+  "disabled": true,
+  "expectedArtifacts": [
+   {
+    "defaultArtifact": {
+     "customKind": true,
+     "id": "b884f892-2df8-44ac-92cf-5f3478b32875"
+    },
+    "displayName": "gcr.io/evolvere-iot-poc/spinnaker-demo",
+    "id": "0d46b920-7a51-4f7b-962d-b83ca8cd2365",
+    "matchArtifact": {
+     "artifactAccount": "docker-registry",
+     "id": "c962758a-73e4-4061-aa2f-fda63aa5cd8c",
+     "name": "gcr.io/evolvere-iot-poc/spinnaker-demo",
+     "type": "docker/image"
+    },
+    "useDefaultArtifact": false,
+    "usePriorArtifact": true
+   },
+   {
+    "defaultArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "e22e9c79-4225-46ed-9e38-9c8981578433",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/namespace.yaml",
+     "reference": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/namespace.yaml",
+     "type": "gcs/object"
+    },
+    "displayName": "Namespace",
+    "id": "235ca4ec-3d42-48f6-a03a-531d7d0acd23",
+    "matchArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "4c71b5ec-7cc9-4f65-8792-b3906bba04f5",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/namespace.yaml",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": true,
+    "usePriorArtifact": true
+   },
+   {
+    "defaultArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "a4e91b9c-b5cb-4f38-8455-11f62938ac9e",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/replicaset.yaml",
+     "reference": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/replicaset.yaml",
+     "type": "gcs/object"
+    },
+    "displayName": "Replicaset",
+    "id": "e22b4b01-c4af-4600-9b71-f9bacd61b59f",
+    "matchArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "57ed1c52-70bf-472e-8cfc-5e0226b1e968",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/replicaset.yaml",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": true,
+    "usePriorArtifact": true
+   },
+   {
+    "defaultArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "c1a02b3f-8830-4132-b131-56696784f602",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/service.yaml",
+     "reference": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/service.yaml",
+     "type": "gcs/object"
+    },
+    "displayName": "Service",
+    "id": "a48d64df-6969-4912-ab1a-d4553dedebf4",
+    "matchArtifact": {
+     "artifactAccount": "gcs-install-account",
+     "id": "c7da68d0-f372-4f71-b2ac-2d1b511fc542",
+     "name": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/prod/service.yaml",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": true,
+    "usePriorArtifact": true
+   }
+  ],
+  "id": "950e8e6c-e432-4cc9-9064-81a8e23fe454",
+  "index": 1,
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "Deploy To Prod",
+  "spelEvaluator": "v4",
+  "stages": [
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "235ca4ec-3d42-48f6-a03a-531d7d0acd23",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy Namespace",
+    "refId": "1",
+    "requisiteStageRefIds": [],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "a48d64df-6969-4912-ab1a-d4553dedebf4",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy Service",
+    "refId": "2",
+    "requisiteStageRefIds": [
+     "1"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "e22b4b01-c4af-4600-9b71-f9bacd61b59f",
+    "moniker": {
+     "app": "canarytest",
+     "detail": "canary"
+    },
+    "name": "Deploy Replicaset to Canary",
+    "refId": "3",
+    "requiredArtifactIds": [
+     "0d46b920-7a51-4f7b-962d-b83ca8cd2365"
+    ],
+    "requiredArtifacts": [],
+    "requisiteStageRefIds": [
+     "8"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "target": "spinnakerdemo-frontend-canary",
+    "trafficManagement": {
+     "enabled": true,
+     "options": {
+      "enableTraffic": true,
+      "namespace": "spinnakerdemo-prod",
+      "services": [
+       "service spinnakerdemo-service"
+      ],
+      "strategy": "highlander"
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "app": "canarytest",
+    "cloudProvider": "kubernetes",
+    "cluster": "replicaSet spinnakerdemo-frontend",
+    "criteria": "newest",
+    "expectedArtifacts": [],
+    "kind": "replicaSet",
+    "location": "spinnakerdemo-prod",
+    "manifestName": "mmmmmmm",
+    "mode": "dynamic",
+    "name": "Find Artifacts From Resource (Manifest)",
+    "refId": "4",
+    "requisiteStageRefIds": [
+     "8"
+    ],
+    "type": "findArtifactsFromResource"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "e22b4b01-c4af-4600-9b71-f9bacd61b59f",
+    "moniker": {
+     "app": "canarytest",
+     "detail": "baseline"
+    },
+    "name": "Deploy Baseline",
+    "namespaceOverride": "",
+    "refId": "5",
+    "requisiteStageRefIds": [
+     "4"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "name": "Running version not present",
+    "preconditions": [
+     {
+      "cloudProvider": "kubernetes",
+      "context": {
+       "cluster": "replicaSet spinnakerdemo-frontend",
+       "comparison": "==",
+       "credentials": "spinnaker-install-account",
+       "expected": 0,
+       "moniker": {
+        "app": "canarytest",
+        "cluster": "replicaSet spinnakerdemo-frontend"
+       },
+       "regions": [
+        "spinnakerdemo-prod"
+       ]
+      },
+      "failPipeline": false,
+      "type": "clusterSize"
+     }
+    ],
+    "refId": "6",
+    "requisiteStageRefIds": [
+     "2"
+    ],
+    "type": "checkPreconditions"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "e22b4b01-c4af-4600-9b71-f9bacd61b59f",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy Replicaset to Prod",
+    "refId": "7",
+    "requiredArtifactIds": [
+     "0d46b920-7a51-4f7b-962d-b83ca8cd2365"
+    ],
+    "requiredArtifacts": [],
+    "requisiteStageRefIds": [
+     "6"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "target": "spinnakerdemo-frontend",
+    "trafficManagement": {
+     "enabled": true,
+     "options": {
+      "enableTraffic": true,
+      "namespace": "spinnakerdemo-prod",
+      "services": [
+       "service spinnakerdemo-service"
+      ],
+      "strategy": "highlander"
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "name": "Running version present",
+    "preconditions": [
+     {
+      "cloudProvider": "kubernetes",
+      "context": {
+       "cluster": "replicaSet spinnakerdemo-frontend",
+       "comparison": "\u003e",
+       "credentials": "spinnaker-install-account",
+       "expected": 0,
+       "moniker": {
+        "app": "canarytest",
+        "cluster": "replicaSet spinnakerdemo-frontend"
+       },
+       "regions": [
+        "spinnakerdemo-prod"
+       ]
+      },
+      "failPipeline": false,
+      "type": "clusterSize"
+     }
+    ],
+    "refId": "8",
+    "requisiteStageRefIds": [
+     "2"
+    ],
+    "type": "checkPreconditions"
+   }
+  ],
+  "triggers": [
+   {
+    "application": "canarytest",
+    "enabled": true,
+    "expectedArtifactIds": [],
+    "pipeline": "2362ef33-7196-45b0-9e00-9dbc55c2865f",
+    "status": [
+     "successful"
+    ],
+    "type": "pipeline"
+   }
+  ],
+  "updateTs": "1682524424492"
+ },
+ {
+  "application": "canarytest",
+  "id": "3de348cb-95e6-4a95-8776-a0172fb0f285",
+  "index": 2,
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "namespace",
+  "spelEvaluator": "v4",
+  "stages": [
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifests": [
+     {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+       "labels": {
+        "istio-injection": "enabled"
+       },
+       "name": "spinnakerdemo-prod"
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "create prod ns",
+    "refId": "1",
+    "requisiteStageRefIds": [],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifests": [
+     {
+      "apiVersion": "v1",
+      "kind": "Namespace",
+      "metadata": {
+       "name": "spinnakerdemo-staging"
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "create staging ns",
+    "refId": "2",
+    "requisiteStageRefIds": [
+     "1"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   }
+  ],
+  "triggers": [],
+  "updateTs": "1682600204137"
+ },
+ {
+  "application": "canarytest",
+  "expectedArtifacts": [
+   {
+    "defaultArtifact": {
+     "customKind": true,
+     "id": "87b680be-6106-42f4-906c-fda495bc5725"
+    },
+    "displayName": "brave-shrimp-73",
+    "id": "ecf4c561-d246-434f-8ad8-b6cf31dc116f",
+    "matchArtifact": {
+     "artifactAccount": "custom-artifact",
+     "customKind": true,
+     "id": "082bc6cf-9c07-4214-82ee-9b59b60c5b04",
+     "name": "testone_ns",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": false,
+    "usePriorArtifact": true
+   }
+  ],
+  "id": "790ef65f-f48f-4fc8-82bd-c7a5e9631dec",
+  "index": 3,
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "testone",
+  "spelEvaluator": "v4",
+  "stages": [
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "gcs-install-account",
+    "manifestArtifactId": "ecf4c561-d246-434f-8ad8-b6cf31dc116f",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy (Manifest)",
+    "refId": "1",
+    "requisiteStageRefIds": [],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   }
+  ],
+  "triggers": [],
+  "updateTs": "1682355080314"
+ },
+ {
+  "application": "canarytest",
+  "expectedArtifacts": [
+   {
+    "defaultArtifact": {
+     "customKind": true,
+     "id": "573e9cdd-3381-432f-bc8b-6023f1e22d84"
+    },
+    "displayName": "chart-to-deploy",
+    "id": "6f2ded5c-eb7f-45cf-bffe-f91a628cb35c",
+    "matchArtifact": {
+     "artifactAccount": "custom-artifact",
+     "customKind": true,
+     "id": "e572d4a9-b8aa-4ee5-bcdc-572d11be97c2",
+     "name": "chart-to-deploy",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": false,
+    "usePriorArtifact": true
+   }
+  ],
+  "id": "84baf10d-a214-4ac6-8e8e-319c42ddbe72",
+  "index": 4,
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "Trigger Deploy Pipeline",
+  "parameterConfig": [
+   {
+    "default": "",
+    "description": "",
+    "hasOptions": true,
+    "label": "Success Rate",
+    "name": "successRate",
+    "options": [
+     {
+      "value": "0"
+     },
+     {
+      "value": "20"
+     },
+     {
+      "value": "40"
+     },
+     {
+      "value": "60"
+     },
+     {
+      "value": "80"
+     },
+     {
+      "value": "100"
+     }
+    ],
+    "pinned": false,
+    "required": false
+   }
+  ],
+  "spelEvaluator": "v4",
+  "stages": [
+   {
+    "completeOtherBranchesThenFail": false,
+    "continuePipeline": false,
+    "failPipeline": false,
+    "name": "Canary Install",
+    "preconditions": [
+     {
+      "cloudProvider": "kubernetes",
+      "context": {
+       "cluster": "deployment spinnakerdemo",
+       "comparison": "\u003e=",
+       "credentials": "spinnaker-install-account",
+       "expected": 1,
+       "moniker": {
+        "app": "canarytest",
+        "cluster": "deployment spinnakerdemo"
+       },
+       "regions": [
+        "spinnakerdemo-prod"
+       ]
+      },
+      "failPipeline": false,
+      "type": "clusterSize"
+     }
+    ],
+    "refId": "1",
+    "requisiteStageRefIds": [],
+    "type": "checkPreconditions"
+   },
+   {
+    "application": "canarytest",
+    "failPipeline": true,
+    "name": "Canary Deploy",
+    "pipeline": "71c84682-e9aa-42bb-892c-45eacb63e68c",
+    "pipelineParameters": {
+     "successRate": "${parameters.successRate}"
+    },
+    "refId": "2",
+    "requisiteStageRefIds": [
+     "1"
+    ],
+    "type": "pipeline",
+    "waitForCompletion": true
+   },
+   {
+    "completeOtherBranchesThenFail": false,
+    "continuePipeline": false,
+    "failPipeline": false,
+    "name": "First install",
+    "preconditions": [
+     {
+      "cloudProvider": "kubernetes",
+      "context": {
+       "cluster": "deployment spinnakerdemo",
+       "comparison": "==",
+       "credentials": "spinnaker-install-account",
+       "expected": 0,
+       "moniker": {
+        "app": "canarytest",
+        "cluster": "deployment spinnakerdemo"
+       },
+       "regions": [
+        "spinnakerdemo-prod"
+       ]
+      },
+      "failPipeline": false,
+      "type": "clusterSize"
+     }
+    ],
+    "refId": "3",
+    "requisiteStageRefIds": [],
+    "type": "checkPreconditions"
+   },
+   {
+    "application": "canarytest",
+    "failPipeline": true,
+    "name": "Prod Deploy",
+    "pipeline": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+    "pipelineParameters": {
+     "successRate": "${parameters.successRate}"
+    },
+    "refId": "4",
+    "requisiteStageRefIds": [
+     "3"
+    ],
+    "type": "pipeline",
+    "waitForCompletion": true
+   }
+  ],
+  "triggers": [],
+  "updateTs": "1682611857871"
+ },
+ {
+  "application": "canarytest",
+  "expectedArtifacts": [
+   {
+    "defaultArtifact": {
+     "artifactAccount": "custom-artifact",
+     "customKind": true,
+     "id": "c3afbefb-389f-4608-a86a-1b624140ae5e",
+     "type": "custom/object"
+    },
+    "displayName": "chart-to-deploy",
+    "id": "40a7948f-004c-45c0-a981-e9e5d462a06a",
+    "matchArtifact": {
+     "artifactAccount": "custom-artifact",
+     "customKind": true,
+     "id": "30f8fbb0-b9f4-42be-9795-f7c85acc38ac",
+     "name": "chart-to-deploy",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": false,
+    "usePriorArtifact": true
+   }
+  ],
+  "id": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+  "index": 5,
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "Prod Deploy Pipeline",
+  "parameterConfig": [
+   {
+    "default": "",
+    "description": "Success rate of the application",
+    "hasOptions": true,
+    "label": "Success Rate",
+    "name": "successRate",
+    "options": [
+     {
+      "value": "0"
+     },
+     {
+      "value": "20"
+     },
+     {
+      "value": "40"
+     },
+     {
+      "value": "60"
+     },
+     {
+      "value": "80"
+     },
+     {
+      "value": "100"
+     }
+    ],
+    "pinned": false,
+    "required": true
+   }
+  ],
+  "spelEvaluator": "v4",
+  "stages": [
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "customKind": true,
+       "id": "a7a4ac85-7e99-4881-92e0-41bf2beed982"
+      },
+      "displayName": "spinnakerdemo-config-prod",
+      "id": "eb185176-de57-4553-9032-651811a45e97",
+      "matchArtifact": {
+       "customKind": true,
+       "id": "089c13cf-be11-4400-bcf2-a214bc3df666",
+       "name": "spinnakerdemo-config-prod",
+       "type": "kubernetes/configMap"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": false
+     }
+    ],
+    "manifests": [
+     {
+      "apiVersion": "v1",
+      "data": {
+       "SUCCESS_RATE": "${ parameters.successRate }"
+      },
+      "kind": "ConfigMap",
+      "metadata": {
+       "labels": {
+        "app": "spinnakerdemo"
+       },
+       "name": "spinnakerdemo-config-prod",
+       "namespace": "spinnakerdemo-prod"
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy Config",
+    "refId": "1",
+    "requisiteStageRefIds": [],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "customKind": true,
+       "id": "87ca3def-04cf-4120-9ebc-deaef874c9ba"
+      },
+      "displayName": "chart-manifest-baked",
+      "id": "6bd07022-c0b5-41a5-b77f-36a175c53692",
+      "matchArtifact": {
+       "id": "44066dd2-fdb7-4ce9-855f-8d8c5fe692bf",
+       "name": "",
+       "type": "embedded/base64"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": false
+     }
+    ],
+    "inputArtifacts": [
+     {
+      "account": "gcs-install-account",
+      "id": "40a7948f-004c-45c0-a981-e9e5d462a06a"
+     }
+    ],
+    "name": "Bake manifest",
+    "namespace": "spinnakerdemo-prod",
+    "outputName": "spinnakerdemo",
+    "overrides": {
+     "configMap": "spinnakerdemo-config-prod",
+     "replicaCount": "3",
+     "version": "prod"
+    },
+    "refId": "2",
+    "requisiteStageRefIds": [
+     "1"
+    ],
+    "templateRenderer": "HELM3",
+    "type": "bakeManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "embedded-artifact",
+    "manifestArtifactId": "6bd07022-c0b5-41a5-b77f-36a175c53692",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy (Manifest)",
+    "refId": "3",
+    "requiredArtifactIds": [
+     "eb185176-de57-4553-9032-651811a45e97"
+    ],
+    "requiredArtifacts": [],
+    "requisiteStageRefIds": [
+     "2"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   }
+  ],
+  "triggers": [],
+  "updateTs": "1682597986726"
+ },
+ {
+  "application": "canarytest",
+  "expectedArtifacts": [
+   {
+    "defaultArtifact": {
+     "customKind": true,
+     "id": "642f5f2d-5dc3-416a-80e6-fb15749c20eb"
+    },
+    "displayName": "newchart-to-deploy",
+    "id": "3801a48e-6ea0-4c3c-861f-1f353d61a56c",
+    "matchArtifact": {
+     "artifactAccount": "custom-artifact",
+     "customKind": true,
+     "id": "a17fcc8f-5842-454d-8325-a0d0c1cbef7c",
+     "name": "chart-to-deploy",
+     "type": "gcs/object"
+    },
+    "useDefaultArtifact": false,
+    "usePriorArtifact": false
+   }
+  ],
+  "id": "71c84682-e9aa-42bb-892c-45eacb63e68c",
+  "index": 6,
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "Canary Deploy Pipeline",
+  "parameterConfig": [
+   {
+    "default": "",
+    "description": "Success rate of the application",
+    "hasOptions": true,
+    "label": "Success Rate",
+    "name": "successRate",
+    "options": [
+     {
+      "value": "0"
+     },
+     {
+      "value": "20"
+     },
+     {
+      "value": "40"
+     },
+     {
+      "value": "60"
+     },
+     {
+      "value": "80"
+     },
+     {
+      "value": "100"
+     }
+    ],
+    "pinned": false,
+    "required": true
+   }
+  ],
+  "spelEvaluator": "v4",
+  "stages": [
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifests": [
+     {
+      "apiVersion": "networking.istio.io/v1alpha3",
+      "kind": "VirtualService",
+      "metadata": {
+       "name": "spinnakerdemo-virtual-service",
+       "namespace": "spinnakerdemo-prod"
+      },
+      "spec": {
+       "hosts": [
+        "spinnakerdemo"
+       ],
+       "http": [
+        {
+         "route": [
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "prod"
+           },
+           "weight": 100
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "baseline"
+           },
+           "weight": 0
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "canary"
+           },
+           "weight": 0
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "apiVersion": "networking.istio.io/v1alpha3",
+      "kind": "DestinationRule",
+      "metadata": {
+       "name": "spinnakerdemo-destination-rule",
+       "namespace": "spinnakerdemo-prod"
+      },
+      "spec": {
+       "host": "spinnakerdemo",
+       "subsets": [
+        {
+         "labels": {
+          "version": "prod"
+         },
+         "name": "prod"
+        },
+        {
+         "labels": {
+          "version": "baseline"
+         },
+         "name": "baseline"
+        },
+        {
+         "labels": {
+          "version": "canary"
+         },
+         "name": "canary"
+        }
+       ]
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy VirtualService",
+    "refId": "1",
+    "requisiteStageRefIds": [],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "application": "canarytest",
+    "executionOptions": {
+     "successful": true
+    },
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "customKind": true,
+       "id": "215347bb-0c90-42dd-b44c-318ea7ddff26"
+      },
+      "displayName": "spinnakerdemo-config-prod",
+      "id": "929ca088-5b9c-4465-b5c4-344417727ca5",
+      "matchArtifact": {
+       "id": "0a33198e-2653-42ee-adf9-03d1c1790150",
+       "name": "spinnakerdemo-config-prod",
+       "type": "kubernetes/configMap"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": false
+     }
+    ],
+    "name": "Find Baseline Configmap",
+    "pipeline": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+    "refId": "2",
+    "requisiteStageRefIds": [],
+    "type": "findArtifactFromExecution"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "customKind": true,
+       "id": "8077b68f-225d-4666-b6be-2cf1814a8716"
+      },
+      "displayName": "spinnakerdemo-config-canary",
+      "id": "177cd5cb-d09c-4c43-98e9-a0cd61fa7b2c",
+      "matchArtifact": {
+       "id": "56dfa49a-27ca-4735-9e25-44235b4deb65",
+       "name": "spinnakerdemo-config-canary",
+       "type": "kubernetes/configMap"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": false
+     }
+    ],
+    "manifests": [
+     {
+      "apiVersion": "v1",
+      "data": {
+       "SUCCESS_RATE": "${ parameters.successRate }"
+      },
+      "kind": "ConfigMap",
+      "metadata": {
+       "labels": {
+        "app": "spinnakerdemo-canary"
+       },
+       "name": "spinnakerdemo-config-canary",
+       "namespace": "spinnakerdemo-prod"
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy Canary Config",
+    "refId": "3",
+    "requisiteStageRefIds": [],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "application": "canarytest",
+    "executionOptions": {
+     "successful": true
+    },
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "customKind": true,
+       "id": "d18fef2e-d186-48a1-a4d9-30c50207c863"
+      },
+      "displayName": "chart-to-deploy",
+      "id": "11b7ecac-29c9-4eca-91fd-8b82b5784266",
+      "matchArtifact": {
+       "customKind": true,
+       "id": "67d261b6-5ce6-48f3-95d4-1e5261c4a0d0",
+       "name": "chart-to-deploy",
+       "type": "gcs/object"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": false
+     }
+    ],
+    "name": "Find Baseline Chart",
+    "pipeline": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+    "refId": "4",
+    "requisiteStageRefIds": [
+     "2"
+    ],
+    "type": "findArtifactFromExecution"
+   },
+   {
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "customKind": true,
+       "id": "6007f42b-951e-4722-a762-84381eebcb7e"
+      },
+      "displayName": "chart-manifest-baked",
+      "id": "3151d957-ff7c-4f07-ab04-f7a80fe5f742",
+      "matchArtifact": {
+       "id": "fcb74218-d887-4c75-8c37-db544083c6d9",
+       "type": "embedded/base64"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": false
+     }
+    ],
+    "inputArtifacts": [
+     {
+      "account": "gcs-install-account",
+      "id": "11b7ecac-29c9-4eca-91fd-8b82b5784266"
+     }
+    ],
+    "name": "Bake (Manifest)",
+    "namespace": "spinnakerdemo-prod",
+    "outputName": "spinnakerdemo-baseline",
+    "overrides": {
+     "configMap": "spinnakerdemo-config-prod",
+     "replicaCount": "1",
+     "version": "baseline"
+    },
+    "refId": "5",
+    "requisiteStageRefIds": [
+     "4"
+    ],
+    "templateRenderer": "HELM3",
+    "type": "bakeManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "embedded-artifact",
+    "manifestArtifactId": "3151d957-ff7c-4f07-ab04-f7a80fe5f742",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy baseline",
+    "refId": "6",
+    "requiredArtifactIds": [
+     "929ca088-5b9c-4465-b5c4-344417727ca5"
+    ],
+    "requiredArtifacts": [],
+    "requisiteStageRefIds": [
+     "5"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "customKind": true,
+       "id": "5d81a197-c462-40ab-bbae-356ad475dcaa"
+      },
+      "displayName": "newchart-manifest-baked",
+      "id": "204db3f5-970d-49b9-8de0-da68b18f2f78",
+      "matchArtifact": {
+       "id": "d3482818-55fd-4bf6-9b3f-8f8f2df0ed5a",
+       "type": "embedded/base64"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": false
+     }
+    ],
+    "inputArtifacts": [
+     {
+      "account": "gcs-install-account",
+      "id": "3801a48e-6ea0-4c3c-861f-1f353d61a56c"
+     }
+    ],
+    "name": "Bake (Manifest)",
+    "namespace": "spinnakerdemo-prod",
+    "outputName": "spinnakerdemo-canary",
+    "overrides": {
+     "configMap": "spinnakerdemo-config-canary",
+     "replicaCount": "1",
+     "version": "canary"
+    },
+    "refId": "7",
+    "requisiteStageRefIds": [
+     "3"
+    ],
+    "templateRenderer": "HELM3",
+    "type": "bakeManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifestArtifactAccount": "embedded-artifact",
+    "manifestArtifactId": "204db3f5-970d-49b9-8de0-da68b18f2f78",
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Deploy canary",
+    "refId": "8",
+    "requiredArtifactIds": [
+     "177cd5cb-d09c-4c43-98e9-a0cd61fa7b2c"
+    ],
+    "requiredArtifacts": [],
+    "requisiteStageRefIds": [
+     "7"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "artifact",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifests": [
+     {
+      "apiVersion": "networking.istio.io/v1alpha3",
+      "kind": "VirtualService",
+      "metadata": {
+       "name": "spinnakerdemo-virtual-service",
+       "namespace": "spinnakerdemo-prod"
+      },
+      "spec": {
+       "hosts": [
+        "spinnakerdemo"
+       ],
+       "http": [
+        {
+         "route": [
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "prod"
+           },
+           "weight": 80
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "baseline"
+           },
+           "weight": 10
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "canary"
+           },
+           "weight": 10
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Send 10% to Canary/Baseline",
+    "refId": "9",
+    "requisiteStageRefIds": [
+     "6",
+     "8",
+     "1"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "analysisType": "realTime",
+    "canaryConfig": {
+     "beginCanaryAnalysisAfterMins": "0",
+     "canaryAnalysisIntervalMins": "5",
+     "canaryConfigId": "797ca739-3766-4c5d-8b98-95417ccdfd31",
+     "lifetimeDuration": "PT0H10M",
+     "metricsAccountName": "my-google-account",
+     "scopes": [
+      {
+       "controlLocation": "spinnakerdemo-prod",
+       "controlScope": "spinnakerdemo-baseline",
+       "experimentLocation": "spinnakerdemo-prod",
+       "experimentScope": "spinnakerdemo-canary",
+       "extendedScopeParams": {},
+       "scopeName": "default",
+       "step": 60
+      }
+     ],
+     "scoreThresholds": {
+      "marginal": "50",
+      "pass": "75"
+     },
+     "storageAccountName": "my-google-account"
+    },
+    "completeOtherBranchesThenFail": false,
+    "continuePipeline": true,
+    "failPipeline": false,
+    "name": "Canary Analysis at 10%",
+    "refId": "10",
+    "requisiteStageRefIds": [
+     "9"
+    ],
+    "type": "kayentaCanary"
+   },
+   {
+    "completeOtherBranchesThenFail": false,
+    "continuePipeline": false,
+    "failPipeline": false,
+    "name": "If Canary at 10% passes",
+    "preconditions": [
+     {
+      "context": {
+       "expression": "${ #stage('Canary Analysis at 10%')['status'].toString() == 'SUCCEEDED'}"
+      },
+      "failPipeline": true,
+      "type": "expression"
+     }
+    ],
+    "refId": "11",
+    "requisiteStageRefIds": [
+     "10"
+    ],
+    "type": "checkPreconditions"
+   },
+   {
+    "completeOtherBranchesThenFail": false,
+    "continuePipeline": false,
+    "failPipeline": false,
+    "name": "If Canary at 10% fails",
+    "preconditions": [
+     {
+      "context": {
+       "expression": "${ #stage('Canary Analysis at 10%')['status'].toString() != 'SUCCEEDED'}"
+      },
+      "failPipeline": true,
+      "type": "expression"
+     }
+    ],
+    "refId": "12",
+    "requisiteStageRefIds": [
+     "10"
+    ],
+    "type": "checkPreconditions"
+   },
+   {
+    "application": "canarytest",
+    "failPipeline": true,
+    "name": "100% to old Prod",
+    "pipeline": "4a995884-27c1-49b3-a5f1-b40d960fd0f3",
+    "pipelineParameters": {},
+    "refId": "13",
+    "requisiteStageRefIds": [
+     "12"
+    ],
+    "type": "pipeline",
+    "waitForCompletion": true
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifests": [
+     {
+      "apiVersion": "networking.istio.io/v1alpha3",
+      "kind": "VirtualService",
+      "metadata": {
+       "name": "spinnakerdemo-virtual-service",
+       "namespace": "spinnakerdemo-prod"
+      },
+      "spec": {
+       "hosts": [
+        "spinnakerdemo"
+       ],
+       "http": [
+        {
+         "route": [
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "prod"
+           },
+           "weight": 60
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "baseline"
+           },
+           "weight": 20
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "canary"
+           },
+           "weight": 20
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Send 20% to Canary/Baseline",
+    "refId": "14",
+    "requisiteStageRefIds": [
+     "11"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "analysisType": "realTime",
+    "canaryConfig": {
+     "canaryAnalysisIntervalMins": "5",
+     "canaryConfigId": "797ca739-3766-4c5d-8b98-95417ccdfd31",
+     "lifetimeDuration": "PT0H10M",
+     "metricsAccountName": "my-google-account",
+     "scopes": [
+      {
+       "controlLocation": "spinnakerdemo-prod",
+       "controlScope": "spinnakerdemo-baseline",
+       "experimentLocation": "spinnakerdemo-prod",
+       "experimentScope": "spinnakerdemo-canary",
+       "extendedScopeParams": {},
+       "scopeName": "default",
+       "step": 60
+      }
+     ],
+     "scoreThresholds": {
+      "marginal": "75",
+      "pass": "95"
+     },
+     "storageAccountName": "my-google-account"
+    },
+    "completeOtherBranchesThenFail": false,
+    "continuePipeline": true,
+    "failPipeline": false,
+    "name": "Canary Analysis at 20%",
+    "refId": "15",
+    "requisiteStageRefIds": [
+     "14"
+    ],
+    "type": "kayentaCanary"
+   },
+   {
+    "completeOtherBranchesThenFail": false,
+    "continuePipeline": false,
+    "failPipeline": false,
+    "name": "If Canary at 20% fails",
+    "preconditions": [
+     {
+      "context": {
+       "expression": "${ #stage('Canary Analysis at 20%')['status'].toString() != 'SUCCEEDED'}"
+      },
+      "failPipeline": true,
+      "type": "expression"
+     }
+    ],
+    "refId": "16",
+    "requisiteStageRefIds": [
+     "15"
+    ],
+    "type": "checkPreconditions"
+   },
+   {
+    "application": "canarytest",
+    "failPipeline": true,
+    "name": "100% to old Prod",
+    "pipeline": "4a995884-27c1-49b3-a5f1-b40d960fd0f3",
+    "pipelineParameters": {},
+    "refId": "17",
+    "requisiteStageRefIds": [
+     "16"
+    ],
+    "type": "pipeline",
+    "waitForCompletion": true
+   },
+   {
+    "completeOtherBranchesThenFail": false,
+    "continuePipeline": false,
+    "failPipeline": false,
+    "name": "If Canary at 20% passes",
+    "preconditions": [
+     {
+      "context": {
+       "expression": "${ #stage('Canary Analysis at 20%')['status'].toString() == 'SUCCEEDED'}"
+      },
+      "failPipeline": true,
+      "type": "expression"
+     }
+    ],
+    "refId": "18",
+    "requisiteStageRefIds": [
+     "15"
+    ],
+    "type": "checkPreconditions"
+   },
+   {
+    "application": "canarytest",
+    "failPipeline": true,
+    "name": "Upgrade Production",
+    "pipeline": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+    "pipelineParameters": {
+     "successRate": "${ parameters.successRate }"
+    },
+    "refId": "19",
+    "requisiteStageRefIds": [
+     "18"
+    ],
+    "type": "pipeline",
+    "waitForCompletion": true
+   },
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifests": [
+     {
+      "apiVersion": "networking.istio.io/v1alpha3",
+      "kind": "VirtualService",
+      "metadata": {
+       "name": "spinnakerdemo-virtual-service",
+       "namespace": "spinnakerdemo-prod"
+      },
+      "spec": {
+       "hosts": [
+        "spinnakerdemo"
+       ],
+       "http": [
+        {
+         "route": [
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "prod"
+           },
+           "weight": 100
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "baseline"
+           },
+           "weight": 0
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "canary"
+           },
+           "weight": 0
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Send 100% to New Prod",
+    "refId": "20",
+    "requisiteStageRefIds": [
+     "19"
+    ],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "app": "canarytest",
+    "cloudProvider": "kubernetes",
+    "kinds": [],
+    "labelSelectors": {
+     "selectors": [
+      {
+       "key": "app",
+       "kind": "EQUALS",
+       "values": [
+        "spinnakerdemo-baseline"
+       ]
+      }
+     ]
+    },
+    "location": "spinnakerdemo-prod",
+    "mode": "label",
+    "name": "Delete (Manifest)",
+    "options": {
+     "cascading": true
+    },
+    "refId": "21",
+    "requisiteStageRefIds": [
+     "20"
+    ],
+    "type": "deleteManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "app": "canarytest",
+    "cloudProvider": "kubernetes",
+    "kinds": [],
+    "labelSelectors": {
+     "selectors": [
+      {
+       "key": "app",
+       "kind": "EQUALS",
+       "values": [
+        "spinnakerdemo-baseline"
+       ]
+      }
+     ]
+    },
+    "location": "spinnakerdemo-prod",
+    "mode": "label",
+    "name": "Delete (Manifest)",
+    "options": {
+     "cascading": true
+    },
+    "refId": "22",
+    "requisiteStageRefIds": [
+     "20"
+    ],
+    "type": "deleteManifest"
+   }
+  ],
+  "triggers": [],
+  "updateTs": "1682614101627"
+ },
+ {
+  "application": "canarytest",
+  "id": "4a995884-27c1-49b3-a5f1-b40d960fd0f3",
+  "index": 7,
+  "keepWaitingPipelines": false,
+  "lastModifiedBy": "anonymous",
+  "limitConcurrent": true,
+  "name": "Canary Failed Pipeline",
+  "spelEvaluator": "v4",
+  "stages": [
+   {
+    "account": "spinnaker-install-account",
+    "cloudProvider": "kubernetes",
+    "manifests": [
+     {
+      "apiVersion": "networking.istio.io/v1alpha3",
+      "kind": "VirtualService",
+      "metadata": {
+       "name": "spinnakerdemo-virtual-service",
+       "namespace": "spinnakerdemo-prod"
+      },
+      "spec": {
+       "hosts": [
+        "spinnakerdemo"
+       ],
+       "http": [
+        {
+         "route": [
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "prod"
+           },
+           "weight": 100
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "baseline"
+           },
+           "weight": 0
+          },
+          {
+           "destination": {
+            "host": "spinnakerdemo",
+            "subset": "canary"
+           },
+           "weight": 0
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "moniker": {
+     "app": "canarytest"
+    },
+    "name": "Send 100% to old Prod",
+    "refId": "1",
+    "requisiteStageRefIds": [],
+    "skipExpressionEvaluation": false,
+    "source": "text",
+    "trafficManagement": {
+     "enabled": false,
+     "options": {
+      "enableTraffic": false,
+      "services": []
+     }
+    },
+    "type": "deployManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "app": "canarytest",
+    "cloudProvider": "kubernetes",
+    "kinds": [
+     "deployment"
+    ],
+    "labelSelectors": {
+     "selectors": [
+      {
+       "key": "app",
+       "kind": "EQUALS",
+       "values": [
+        "spinnakerdemo-canary"
+       ]
+      }
+     ]
+    },
+    "location": "spinnakerdemo-prod",
+    "mode": "label",
+    "name": "Delete Canary",
+    "options": {
+     "cascading": true
+    },
+    "refId": "2",
+    "requisiteStageRefIds": [
+     "1"
+    ],
+    "type": "deleteManifest"
+   },
+   {
+    "account": "spinnaker-install-account",
+    "app": "canarytest",
+    "cloudProvider": "kubernetes",
+    "kinds": [
+     "deployment"
+    ],
+    "labelSelectors": {
+     "selectors": [
+      {
+       "key": "app",
+       "kind": "EQUALS",
+       "values": [
+        "spinnakerdemo-baseline"
+       ]
+      }
+     ]
+    },
+    "location": "spinnakerdemo-prod",
+    "mode": "label",
+    "name": "Delete Baseline",
+    "options": {
+     "cascading": true
+    },
+    "refId": "3",
+    "requisiteStageRefIds": [
+     "1"
+    ],
+    "type": "deleteManifest"
+   }
+  ],
+  "triggers": [],
+  "updateTs": "1682690135043"
+ }
+]
