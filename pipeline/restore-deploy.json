@@ -1,0 +1,137 @@
+{
+    "application": "_APPNAME_",
+    "id": "4a995884-27c1-49b3-a5f1-b40d960fd0f3",
+    "index": 4,
+    "keepWaitingPipelines": false,
+    "lastModifiedBy": "anonymous",
+    "limitConcurrent": true,
+    "name": "Restore Deployment",
+    "spelEvaluator": "v4",
+    "stages": [
+     {
+      "account": "spinnaker-install-account",
+      "cloudProvider": "kubernetes",
+      "manifests": [
+       {
+        "apiVersion": "networking.istio.io/v1alpha3",
+        "kind": "VirtualService",
+        "metadata": {
+         "name": "_APPNAME_-virtual-service",
+         "namespace": "_APPNAME_-prod"
+        },
+        "spec": {
+         "hosts": [
+          "_APPNAME_"
+         ],
+         "http": [
+          {
+           "route": [
+            {
+             "destination": {
+              "host": "_APPNAME_",
+              "subset": "prod"
+             },
+             "weight": 100
+            },
+            {
+             "destination": {
+              "host": "_APPNAME_",
+              "subset": "baseline"
+             },
+             "weight": 0
+            },
+            {
+             "destination": {
+              "host": "_APPNAME_",
+              "subset": "canary"
+             },
+             "weight": 0
+            }
+           ]
+          }
+         ]
+        }
+       }
+      ],
+      "moniker": {
+       "app": "_APPNAME_"
+      },
+      "name": "Send 100% to old Prod",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "skipExpressionEvaluation": false,
+      "source": "text",
+      "trafficManagement": {
+       "enabled": false,
+       "options": {
+        "enableTraffic": false,
+        "services": []
+       }
+      },
+      "type": "deployManifest"
+     },
+     {
+      "account": "spinnaker-install-account",
+      "app": "_APPNAME_",
+      "cloudProvider": "kubernetes",
+      "kinds": [
+       "deployment"
+      ],
+      "labelSelectors": {
+       "selectors": [
+        {
+         "key": "app",
+         "kind": "EQUALS",
+         "values": [
+          "_APPNAME_-canary"
+         ]
+        }
+       ]
+      },
+      "location": "_APPNAME_-prod",
+      "mode": "label",
+      "name": "Delete Canary",
+      "options": {
+       "cascading": true
+      },
+      "refId": "2",
+      "requisiteStageRefIds": [
+       "1"
+      ],
+      "type": "deleteManifest"
+     },
+     {
+      "account": "spinnaker-install-account",
+      "app": "_APPNAME_",
+      "cloudProvider": "kubernetes",
+      "kinds": [
+       "deployment"
+      ],
+      "labelSelectors": {
+       "selectors": [
+        {
+         "key": "app",
+         "kind": "EQUALS",
+         "values": [
+          "_APPNAME_-baseline"
+         ]
+        }
+       ]
+      },
+      "location": "_APPNAME_-prod",
+      "mode": "label",
+      "name": "Delete Baseline",
+      "options": {
+       "cascading": true
+      },
+      "refId": "3",
+      "requisiteStageRefIds": [
+       "1"
+      ],
+      "type": "deleteManifest"
+     }
+    ],
+    "triggers": [],
+    "updateTs": "1682707855809"
+   }
+   

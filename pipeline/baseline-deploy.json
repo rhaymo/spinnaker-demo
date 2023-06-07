@@ -1,0 +1,142 @@
+{
+    "application": "_APPNAME_",
+    "expectedArtifacts": [],
+    "id": "798447ab-ea30-4d6a-bf22-895d6716bdb9",
+    "index": 5,
+    "keepWaitingPipelines": false,
+    "lastModifiedBy": "anonymous",
+    "limitConcurrent": true,
+    "name": "Deploy Baseline",
+    "parameterConfig": [],
+    "spelEvaluator": "v4",
+    "stages": [
+     {
+      "application": "_APPNAME_",
+      "executionOptions": {
+       "successful": true
+      },
+      "expectedArtifacts": [
+       {
+        "defaultArtifact": {
+         "customKind": true,
+         "id": "215347bb-0c90-42dd-b44c-318ea7ddff26"
+        },
+        "displayName": "_APPNAME_-config-prod",
+        "id": "929ca088-5b9c-4465-b5c4-344417727ca5",
+        "matchArtifact": {
+         "id": "0a33198e-2653-42ee-adf9-03d1c1790150",
+         "name": "_APPNAME_-config-prod",
+         "type": "kubernetes/configMap"
+        },
+        "useDefaultArtifact": false,
+        "usePriorArtifact": false
+       }
+      ],
+      "name": "Find Baseline Configmap",
+      "pipeline": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+      "refId": "2",
+      "requisiteStageRefIds": [],
+      "type": "findArtifactFromExecution"
+     },
+     {
+      "application": "_APPNAME_",
+      "executionOptions": {
+       "successful": true
+      },
+      "expectedArtifacts": [
+       {
+        "defaultArtifact": {
+         "customKind": true,
+         "id": "d18fef2e-d186-48a1-a4d9-30c50207c863"
+        },
+        "displayName": "chart-to-deploy",
+        "id": "11b7ecac-29c9-4eca-91fd-8b82b5784266",
+        "matchArtifact": {
+         "customKind": true,
+         "id": "67d261b6-5ce6-48f3-95d4-1e5261c4a0d0",
+         "name": "chart-to-deploy",
+         "type": "gcs/object"
+        },
+        "useDefaultArtifact": false,
+        "usePriorArtifact": false
+       }
+      ],
+      "name": "Find Baseline Chart",
+      "pipeline": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+      "refId": "4",
+      "requisiteStageRefIds": [
+       "2"
+      ],
+      "type": "findArtifactFromExecution"
+     },
+     {
+      "expectedArtifacts": [
+       {
+        "defaultArtifact": {
+         "customKind": true,
+         "id": "6007f42b-951e-4722-a762-84381eebcb7e"
+        },
+        "displayName": "chart-manifest-baked",
+        "id": "3151d957-ff7c-4f07-ab04-f7a80fe5f742",
+        "matchArtifact": {
+         "id": "fcb74218-d887-4c75-8c37-db544083c6d9",
+         "type": "embedded/base64"
+        },
+        "useDefaultArtifact": false,
+        "usePriorArtifact": false
+       }
+      ],
+      "inputArtifacts": [
+       {
+        "account": "gcs-install-account",
+        "id": "11b7ecac-29c9-4eca-91fd-8b82b5784266"
+       }
+      ],
+      "name": "Bake (Manifest)",
+      "namespace": "_APPNAME_-prod",
+      "outputName": "_APPNAME_-baseline",
+      "overrides": {
+       "configMap": "_APPNAME_-config-prod",
+       "replicaCount": "1",
+       "version": "baseline"
+      },
+      "refId": "5",
+      "requisiteStageRefIds": [
+       "4"
+      ],
+      "templateRenderer": "HELM3",
+      "type": "bakeManifest"
+     },
+     {
+      "account": "spinnaker-install-account",
+      "cloudProvider": "kubernetes",
+      "manifestArtifactAccount": "embedded-artifact",
+      "manifestArtifactId": "3151d957-ff7c-4f07-ab04-f7a80fe5f742",
+      "moniker": {
+       "app": "_APPNAME_"
+      },
+      "name": "Deploy baseline",
+      "refId": "6",
+      "requiredArtifactIds": [
+       "929ca088-5b9c-4465-b5c4-344417727ca5"
+      ],
+      "requiredArtifacts": [],
+      "requisiteStageRefIds": [
+       "5"
+      ],
+      "skipExpressionEvaluation": false,
+      "source": "artifact",
+      "trafficManagement": {
+       "enabled": false,
+       "options": {
+        "enableTraffic": false,
+        "services": []
+       }
+      },
+      "type": "deployManifest"
+     }
+    ],
+    "triggers": [],
+    "updateTs": "1682699577200"
+   }
+   

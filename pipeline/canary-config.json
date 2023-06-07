@@ -1,0 +1,85 @@
+{
+ "applications": [
+  "canarytest"
+ ],
+ "classifier": {
+  "groupWeights": {
+   "Boring System Metrics": 20,
+   "Meeseeks": 80
+  }
+ },
+ "configVersion": "1",
+ "createdTimestamp": 1682527688897,
+ "createdTimestampIso": "2023-04-26T16:48:08.897Z",
+ "description": "",
+ "id": "797ca739-3766-4c5d-8b98-95417ccdfd31",
+ "judge": {
+  "judgeConfigurations": {},
+  "name": "NetflixACAJudge-v1.0"
+ },
+ "metrics": [
+  {
+   "analysisConfigurations": {
+    "canary": {
+     "direction": "increase"
+    }
+   },
+   "groups": [
+    "Meeseeks"
+   ],
+   "name": "meeseeks-logs",
+   "query": {
+    "customFilterTemplate": "Specific replication-controller",
+    "metricType": "logging.googleapis.com/user/meeseeks-logs-metric",
+    "resourceType": "k8s_container",
+    "serviceType": "stackdriver",
+    "type": "stackdriver"
+   },
+   "scopeName": "default"
+  },
+  {
+   "analysisConfigurations": {
+    "canary": {
+     "direction": "increase"
+    }
+   },
+   "groups": [
+    "Boring System Metrics"
+   ],
+   "name": "cpu",
+   "query": {
+    "customFilterTemplate": "Specific replication-controller",
+    "metricType": "kubernetes.io/container/cpu/request_utilization",
+    "resourceType": "k8s_container",
+    "serviceType": "stackdriver",
+    "type": "stackdriver"
+   },
+   "scopeName": "default"
+  },
+  {
+   "analysisConfigurations": {
+    "canary": {
+     "direction": "increase"
+    }
+   },
+   "groups": [
+    "Boring System Metrics"
+   ],
+   "name": "memory",
+   "query": {
+    "customFilterTemplate": "Specific replication-controller",
+    "metricType": "kubernetes.io/container/memory/used_bytes",
+    "resourceType": "k8s_container",
+    "serviceType": "stackdriver",
+    "type": "stackdriver"
+   },
+   "scopeName": "default"
+  }
+ ],
+ "name": "Demo-config",
+ "templates": {
+  "Specific replication-controller": "resource.labels.pod_name:\"${scope}\""
+ },
+ "updatedTimestamp": 1682527966555,
+ "updatedTimestampIso": "2023-04-26T16:52:46.555Z"
+}

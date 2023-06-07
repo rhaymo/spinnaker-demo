@@ -1,0 +1,188 @@
+{
+    "application": "_APPNAME_",
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "artifactAccount": "custom-artifact",
+       "customKind": true,
+       "id": "c3afbefb-389f-4608-a86a-1b624140ae5e",
+       "type": "custom/object"
+      },
+      "displayName": "chart-to-deploy",
+      "id": "40a7948f-004c-45c0-a981-e9e5d462a06a",
+      "matchArtifact": {
+       "artifactAccount": "custom-artifact",
+       "customKind": true,
+       "id": "30f8fbb0-b9f4-42be-9795-f7c85acc38ac",
+       "name": "chart-to-deploy",
+       "type": "gcs/object"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": true
+     }
+    ],
+    "id": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+    "index": 2,
+    "keepWaitingPipelines": false,
+    "lastModifiedBy": "anonymous",
+    "limitConcurrent": true,
+    "name": "Prod Deploy Pipeline",
+    "parameterConfig": [
+     {
+      "default": "",
+      "description": "Success rate of the application",
+      "hasOptions": true,
+      "label": "Success Rate",
+      "name": "successRate",
+      "options": [
+       {
+        "value": "0"
+       },
+       {
+        "value": "20"
+       },
+       {
+        "value": "40"
+       },
+       {
+        "value": "60"
+       },
+       {
+        "value": "80"
+       },
+       {
+        "value": "100"
+       }
+      ],
+      "pinned": false,
+      "required": true
+     }
+    ],
+    "spelEvaluator": "v4",
+    "stages": [
+     {
+      "account": "spinnaker-install-account",
+      "cloudProvider": "kubernetes",
+      "expectedArtifacts": [
+       {
+        "defaultArtifact": {
+         "customKind": true,
+         "id": "a7a4ac85-7e99-4881-92e0-41bf2beed982"
+        },
+        "displayName": "_APPNAME_-config-prod",
+        "id": "eb185176-de57-4553-9032-651811a45e97",
+        "matchArtifact": {
+         "customKind": true,
+         "id": "089c13cf-be11-4400-bcf2-a214bc3df666",
+         "name": "_APPNAME_-config-prod",
+         "type": "kubernetes/configMap"
+        },
+        "useDefaultArtifact": false,
+        "usePriorArtifact": false
+       }
+      ],
+      "manifests": [
+       {
+        "apiVersion": "v1",
+        "data": {
+         "SUCCESS_RATE": "${ parameters.successRate }"
+        },
+        "kind": "ConfigMap",
+        "metadata": {
+         "labels": {
+          "app": "_APPNAME_"
+         },
+         "name": "_APPNAME_-config-prod",
+         "namespace": "_APPNAME_-prod"
+        }
+       }
+      ],
+      "moniker": {
+       "app": "_APPNAME_"
+      },
+      "name": "Deploy Config",
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "skipExpressionEvaluation": false,
+      "source": "text",
+      "trafficManagement": {
+       "enabled": false,
+       "options": {
+        "enableTraffic": false,
+        "services": []
+       }
+      },
+      "type": "deployManifest"
+     },
+     {
+      "expectedArtifacts": [
+       {
+        "defaultArtifact": {
+         "customKind": true,
+         "id": "87ca3def-04cf-4120-9ebc-deaef874c9ba"
+        },
+        "displayName": "chart-manifest-baked",
+        "id": "6bd07022-c0b5-41a5-b77f-36a175c53692",
+        "matchArtifact": {
+         "id": "44066dd2-fdb7-4ce9-855f-8d8c5fe692bf",
+         "name": "",
+         "type": "embedded/base64"
+        },
+        "useDefaultArtifact": false,
+        "usePriorArtifact": false
+       }
+      ],
+      "inputArtifacts": [
+       {
+        "account": "gcs-install-account",
+        "id": "40a7948f-004c-45c0-a981-e9e5d462a06a"
+       }
+      ],
+      "name": "Bake manifest",
+      "namespace": "_APPNAME_-prod",
+      "outputName": "_APPNAME_",
+      "overrides": {
+       "configMap": "_APPNAME_-config-prod",
+       "replicaCount": "3",
+       "version": "prod"
+      },
+      "refId": "2",
+      "requisiteStageRefIds": [
+       "1"
+      ],
+      "templateRenderer": "HELM3",
+      "type": "bakeManifest"
+     },
+     {
+      "account": "spinnaker-install-account",
+      "cloudProvider": "kubernetes",
+      "manifestArtifactAccount": "embedded-artifact",
+      "manifestArtifactId": "6bd07022-c0b5-41a5-b77f-36a175c53692",
+      "moniker": {
+       "app": "_APPNAME_"
+      },
+      "name": "Deploy (Manifest)",
+      "refId": "3",
+      "requiredArtifactIds": [
+       "eb185176-de57-4553-9032-651811a45e97"
+      ],
+      "requiredArtifacts": [],
+      "requisiteStageRefIds": [
+       "2"
+      ],
+      "skipExpressionEvaluation": false,
+      "source": "artifact",
+      "trafficManagement": {
+       "enabled": false,
+       "options": {
+        "enableTraffic": false,
+        "services": []
+       }
+      },
+      "type": "deployManifest"
+     }
+    ],
+    "triggers": [],
+    "updateTs": "1682699379738"
+   }
+   

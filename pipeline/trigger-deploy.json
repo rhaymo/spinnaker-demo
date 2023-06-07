@@ -1,0 +1,153 @@
+{
+    "application": "_APPNAME_",
+    "expectedArtifacts": [
+     {
+      "defaultArtifact": {
+       "customKind": true,
+       "id": "573e9cdd-3381-432f-bc8b-6023f1e22d84"
+      },
+      "displayName": "chart-to-deploy",
+      "id": "6f2ded5c-eb7f-45cf-bffe-f91a628cb35c",
+      "matchArtifact": {
+       "artifactAccount": "custom-artifact",
+       "customKind": true,
+       "id": "e572d4a9-b8aa-4ee5-bcdc-572d11be97c2",
+       "name": "chart-to-deploy",
+       "type": "gcs/object"
+      },
+      "useDefaultArtifact": false,
+      "usePriorArtifact": true
+     }
+    ],
+    "id": "84baf10d-a214-4ac6-8e8e-319c42ddbe72",
+    "index": 1,
+    "keepWaitingPipelines": false,
+    "lastModifiedBy": "anonymous",
+    "limitConcurrent": true,
+    "name": "Trigger Deploy Pipeline",
+    "parameterConfig": [
+     {
+      "default": "",
+      "description": "",
+      "hasOptions": true,
+      "label": "Success Rate",
+      "name": "successRate",
+      "options": [
+       {
+        "value": "0"
+       },
+       {
+        "value": "20"
+       },
+       {
+        "value": "40"
+       },
+       {
+        "value": "60"
+       },
+       {
+        "value": "80"
+       },
+       {
+        "value": "100"
+       }
+      ],
+      "pinned": false,
+      "required": false
+     }
+    ],
+    "spelEvaluator": "v4",
+    "stages": [
+     {
+      "completeOtherBranchesThenFail": false,
+      "continuePipeline": false,
+      "failPipeline": false,
+      "name": "Canary Install",
+      "preconditions": [
+       {
+        "cloudProvider": "kubernetes",
+        "context": {
+         "cluster": "deployment _APPNAME_",
+         "comparison": "\u003e=",
+         "credentials": "spinnaker-install-account",
+         "expected": 1,
+         "moniker": {
+          "app": "_APPNAME_",
+          "cluster": "deployment _APPNAME_"
+         },
+         "regions": [
+          "_APPNAME_-prod"
+         ]
+        },
+        "failPipeline": false,
+        "type": "clusterSize"
+       }
+      ],
+      "refId": "1",
+      "requisiteStageRefIds": [],
+      "type": "checkPreconditions"
+     },
+     {
+      "application": "_APPNAME_",
+      "failPipeline": true,
+      "name": "Canary Deploy",
+      "pipeline": "71c84682-e9aa-42bb-892c-45eacb63e68c",
+      "pipelineParameters": {
+       "successRate": "${parameters.successRate}"
+      },
+      "refId": "2",
+      "requisiteStageRefIds": [
+       "1"
+      ],
+      "type": "pipeline",
+      "waitForCompletion": true
+     },
+     {
+      "completeOtherBranchesThenFail": false,
+      "continuePipeline": false,
+      "failPipeline": false,
+      "name": "First install",
+      "preconditions": [
+       {
+        "cloudProvider": "kubernetes",
+        "context": {
+         "cluster": "deployment _APPNAME_",
+         "comparison": "==",
+         "credentials": "spinnaker-install-account",
+         "expected": 0,
+         "moniker": {
+          "app": "_APPNAME_",
+          "cluster": "deployment _APPNAME_"
+         },
+         "regions": [
+          "_APPNAME_-prod"
+         ]
+        },
+        "failPipeline": false,
+        "type": "clusterSize"
+       }
+      ],
+      "refId": "3",
+      "requisiteStageRefIds": [],
+      "type": "checkPreconditions"
+     },
+     {
+      "application": "_APPNAME_",
+      "failPipeline": true,
+      "name": "Prod Deploy",
+      "pipeline": "12076e30-b9ee-466d-b73f-7523a20a9e33",
+      "pipelineParameters": {
+       "successRate": "${parameters.successRate}"
+      },
+      "refId": "4",
+      "requisiteStageRefIds": [
+       "3"
+      ],
+      "type": "pipeline",
+      "waitForCompletion": true
+     }
+    ],
+    "triggers": [],
+    "updateTs": "1682699380455"
+   }
+   

@@ -5,8 +5,6 @@ steps:
   args: ['cp', '-r', 'k8s/*', 'gs://$PROJECT_ID-kubernetes-manifests/spinnaker-demo']
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '--tag=gcr.io/$PROJECT_ID/spinnaker-demo:$REVISION_ID', '.']
-- name: 'gcr.io/cloud-builders/gsutil'
-  args: ['cp', '-r', 'k8s/*', 'gs://$PROJECT_ID-kubernetes-manifests/spinnaker-demo']
 - name: '${_REGISTRY}/$PROJECT_ID/helm'
   args:
     - package
@@ -25,9 +23,9 @@ images: ['gcr.io/$PROJECT_ID/spinnaker-demo:$REVISION_ID']
 substitutions:
  _REGISTRY: gcr.io
  _HELM_REPO_NAME: spinnakerdemo-k8s
- _HELM_REPO_URL: gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/charts
+ _HELM_REPO_URL: gs://$PROJECT_ID-kubernetes-manifests/spinnaker-demo/charts
  _CHART_NAME: spinnakerdemo
- _ARTIFACT_URL: gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/charts
+ _ARTIFACT_URL: gs://$PROJECT_ID-kubernetes-manifests/spinnaker-demo/charts
 options:
   env:
    - SKIP_CLUSTER_CONFIG=true

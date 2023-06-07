@@ -1,0 +1,9 @@
+{
+    "artifacts" : [
+      {
+        "type": "gcs/object",
+        "name": "chart-to-deploy",
+        "reference": "gs://evolvere-iot-poc-kubernetes-manifests/spinnaker-demo/charts/spinnakerdemo-v1.1.8.tgz"
+      }
+    ]
+  }
